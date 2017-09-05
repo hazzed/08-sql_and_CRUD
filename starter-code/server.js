@@ -36,6 +36,9 @@ app.use(express.static('./public'));
 app.get('/new', function(request, response) {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
   // Put your response here...
+  //Diagram 4 and 5
+  //Artcile.js:
+  //Crud-Read
   response.sendFile('new.html', {root: './public'});
 });
 
@@ -44,6 +47,9 @@ app.get('/new', function(request, response) {
 app.get('/articles', function(request, response) {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
   // Put your response here...
+  //Diagram 3,4 and 5
+  //Article.js - fetchAll
+  //Crud-Read
   client.query('SELECT * FROM articles')
   .then(function(result) {
     response.send(result.rows);
@@ -56,6 +62,9 @@ app.get('/articles', function(request, response) {
 app.post('/articles', function(request, response) {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
   // Put your response here...
+  //Diagram 3,4 and 5
+  //Article.js-.insertRecord
+  //Crud-create
   client.query(
     `INSERT INTO
     articles(title, author, "authorUrl", category, "publishedOn", body)
@@ -81,6 +90,9 @@ app.post('/articles', function(request, response) {
 app.put('/articles/:id', function(request, response) {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
   // Put your response here...
+  //Diagram 3, 4 and 5
+  //Article.js - updateRecord
+  //Crud-update
   client.query(
     `UPDATE articles
     SET
@@ -108,6 +120,10 @@ app.put('/articles/:id', function(request, response) {
 app.delete('/articles/:id', function(request, response) {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
   // Put your response here...
+
+  //Diagram 3,4 and 5
+  //Article.js deleteRecord
+  //crud-destroy
   client.query(
     `DELETE FROM articles WHERE article_id=$1;`,
     [request.params.id]
@@ -123,6 +139,11 @@ app.delete('/articles/:id', function(request, response) {
 app.delete('/articles', function(request, response) {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
   // Put your response here...
+
+  // Put your response here...
+  // Diagram: 3, 4 and 5
+  // Article.js: .truncateTable
+  // Crud- Destroy
   client.query(
     'DELETE FROM articles;'
   )
@@ -136,6 +157,7 @@ app.delete('/articles', function(request, response) {
 
 // COMMENT: What is this function invocation doing?
 // Put your response here...
+//This will create a new table if one doesn't excist already, then populates it with the articles.
 loadDB();
 
 app.listen(PORT, function() {
@@ -148,6 +170,9 @@ app.listen(PORT, function() {
 function loadArticles() {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
   // Put your response here...
+  //Diagram 3,4 and 5
+  //Article.js- nothing being sent back
+  //Crud-create
   client.query('SELECT COUNT(*) FROM articles')
   .then(result => {
     // REVIEW: result.rows is an array of objects that Postgres returns as a response to a query.
@@ -174,6 +199,9 @@ function loadArticles() {
 function loadDB() {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
   // Put your response here...
+  // Diagram: 3, 4 and 5
+  // Article.js- no interaction with article.js
+  // Crud- Create
   client.query(`
     CREATE TABLE IF NOT EXISTS articles (
       article_id SERIAL PRIMARY KEY,
